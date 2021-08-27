@@ -1,12 +1,8 @@
 package com.otomate.loginservice.model;
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import lombok.Data;
 
@@ -14,26 +10,33 @@ import lombok.Data;
 @Entity
 @Table(name = "user")
 public class UserRequest {
+	
+ 
 	@Id
-	@GeneratedValue(generator = "prod-generator")
-	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = "DEPT"), strategy = "com.otomate.registerservice.service.IdGenerator")
+	private String email;
 	private String id;
 	private String firstName;
 	private String lastName;
-	private String dept;
-	@Column(unique = true)
-	private String email;
-	@Column(unique = true)
+	private String department;
+	private String skypeid;
 	private String phone;
 	private String password;
-	private String role;
+	private String roles;
 
-	public String getRole() {
-		return role;
+	public String getSkypeid() {
+		return skypeid;
 	}
- 
-	public void setRole(String role) {
-		this.role = role;
+
+	public void setSkypeid(String skypeid) {
+		this.skypeid = skypeid;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 
 	public String getId() {
@@ -60,12 +63,12 @@ public class UserRequest {
 		this.lastName = lastName;
 	}
 
-	public String getDept() {
-		return dept;
+	public String getDepartment() {
+		return department;
 	}
 
-	public void setDept(String dept) {
-		this.dept = dept;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public String getEmail() {
