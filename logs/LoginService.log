@@ -1,0 +1,12 @@
+[INFO ] 2021-08-28 17:20:41.921 [restartedMain] LoginServiceApplication - Starting LoginServiceApplication using Java 16.0.1 on ASUS-TUF-A15 with PID 18564 (C:\Users\dhamo\otomate\LoginService\target\classes started by dhamo in C:\Users\dhamo\otomate\LoginService)
+[DEBUG] 2021-08-28 17:20:41.937 [restartedMain] LoginServiceApplication - Running with Spring Boot v2.5.3, Spring v5.3.9
+[INFO ] 2021-08-28 17:20:41.938 [restartedMain] LoginServiceApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-08-28 17:20:44.904 [restartedMain] Log - SimpleCORSFilter init
+[DEBUG] 2021-08-28 17:20:44.938 [restartedMain] SecurityFilter - Filter 'securityFilter' configured for use
+[INFO ] 2021-08-28 17:20:45.575 [restartedMain] LoginServiceApplication - Started LoginServiceApplication in 3.987 seconds (JVM running for 5.199)
+[INFO ] 2021-08-28 17:21:24.289 [restartedMain] LoginServiceApplication - Starting LoginServiceApplication using Java 16.0.1 on ASUS-TUF-A15 with PID 18564 (C:\Users\dhamo\otomate\LoginService\target\classes started by dhamo in C:\Users\dhamo\otomate\LoginService)
+[DEBUG] 2021-08-28 17:21:24.290 [restartedMain] LoginServiceApplication - Running with Spring Boot v2.5.3, Spring v5.3.9
+[INFO ] 2021-08-28 17:21:24.290 [restartedMain] LoginServiceApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-08-28 17:21:24.777 [restartedMain] Log - SimpleCORSFilter init
+[DEBUG] 2021-08-28 17:21:24.783 [restartedMain] SecurityFilter - Filter 'securityFilter' configured for use
+[INFO ] 2021-08-28 17:21:24.955 [restartedMain] LoginServiceApplication - Started LoginServiceApplication in 0.71 seconds (JVM running for 44.58)
