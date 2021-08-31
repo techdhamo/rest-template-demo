@@ -10,8 +10,7 @@ import lombok.Data;
 @Entity
 @Table(name = "user")
 public class UserRequest {
-	
- 
+	 
 	@Id
 	private String email;
 	private String id;

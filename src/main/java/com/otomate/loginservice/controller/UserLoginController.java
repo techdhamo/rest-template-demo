@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ import com.otomate.loginservice.util.JwtUtil;
 
 import io.jsonwebtoken.impl.DefaultClaims;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/user")
 public class UserLoginController {
@@ -38,7 +39,7 @@ public class UserLoginController {
 	@Autowired
 	private JwtUtil jwtUtil;
 
-	@PostMapping("/update")
+	@PutMapping("/update")
 	public ResponseEntity<String> saveUser(Principal p) {
 
 		Log.logger.error("Details updated by : " + p.getName());
@@ -47,7 +48,7 @@ public class UserLoginController {
 
 	@PostMapping("/login")
 	public ResponseEntity<UserResponse> loginUser(@RequestBody UserRequest userRequest) {
-
+System.out.println("Test>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+userRequest.getEmail()+userRequest.getPassword());
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(userRequest.getEmail(), userRequest.getPassword()));
 
@@ -55,6 +56,19 @@ public class UserLoginController {
  
 		return ResponseEntity.ok(new UserResponse(token, "Success!"));
 	}
+
+	/*
+	 * @PostMapping("/login") public ResponseEntity<UserResponse>
+	 * loginUser(@RequestBody UserRequest userRequest) {
+	 * 
+	 * authenticationManager.authenticate( new
+	 * UsernamePasswordAuthenticationToken(userRequest.getEmail(),
+	 * userRequest.getPassword()));
+	 * 
+	 * String token = jwtUtil.generateToken(userRequest.getEmail());
+	 * 
+	 * return ResponseEntity.ok(new UserResponse(token, "Success!")); }
+	 */
 
 	@PostMapping("/verify")
 	public ResponseEntity<String> accessUserData(Principal p) {

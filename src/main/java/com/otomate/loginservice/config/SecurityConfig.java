@@ -1,5 +1,5 @@
 package com.otomate.loginservice.config;
-
+import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.otomate.loginservice.filter.CORSFilter;
 import com.otomate.loginservice.filter.SecurityFilter;
 
 @EnableWebSecurity
@@ -28,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationEntryPoint authenticationEntryPoint;
 	@Autowired
 	private SecurityFilter securityFilter;
+	@Autowired
+	private CORSFilter corsFilter;
 
 	@Override
 	@Bean
@@ -48,8 +55,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						.exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+				//.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
-	http.cors();
-	}
+				 .addFilterBefore(corsFilter, ChannelProcessingFilter.class);
+
+
+		 http.cors();
+    }
+ 
+    @Bean
+    protected CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
+
 }

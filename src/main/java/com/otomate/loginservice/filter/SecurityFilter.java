@@ -29,6 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
 		String bearerToken = request.getHeader("Authorization");
+		Log.logger.debug("Remote Host"+request.getRemoteHost());
 
 		if (bearerToken != null) {
 

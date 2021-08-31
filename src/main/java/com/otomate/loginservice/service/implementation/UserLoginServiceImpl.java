@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.stream.Collectors;
+
+import com.otomate.loginservice.logger.Log;
 import com.otomate.loginservice.model.UserRequest;
 import com.otomate.loginservice.repository.UserRepository;
 import com.otomate.loginservice.service.IUserLoginService; 
@@ -28,6 +30,7 @@ public class UserLoginServiceImpl implements IUserLoginService,UserDetailsServic
 
 	@Transactional(readOnly = true)
 	public UserRequest findByEmail(String username) {
+		Log.logger.debug("Testing>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ username);
 		Optional<UserRequest> opt=repository.findOneByEmail(username);
 		if(opt.isPresent()) 
 			return opt.get();
