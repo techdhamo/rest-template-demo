@@ -24,14 +24,14 @@ import com.otomate.loginservice.service.IUserLoginService;
 @Service
 public class UserLoginServiceImpl implements IUserLoginService,UserDetailsService{
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repo;
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder; 
 
 	@Transactional(readOnly = true)
 	public UserRequest findByEmail(String username) {
 		Log.logger.debug("Testing>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ username);
-		Optional<UserRequest> opt=repository.findOneByEmail(username);
+		Optional<UserRequest> opt=repo.findOneByEmail(username);
 		if(opt.isPresent()) 
 			return opt.get();
 		return null;

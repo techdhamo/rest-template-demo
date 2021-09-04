@@ -14,19 +14,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtUtil {
-	private String secret;
-	private int jwtExpirationInMs;
+	private String secret; 
 	private int refreshExpirationDateInMs;
 
 	@Value("${jwt.secret}")
 	public void setSecret(String secret) {
 		this.secret = secret;
-	}
-
-	@Value("${jwt.expirationDateInMs}")
-	public void setJwtExpirationInMs(int jwtExpirationInMs) {
-		this.jwtExpirationInMs = jwtExpirationInMs;
-	}
+	} 
 
 	@Value("${jwt.refreshExpirationDateInMs}")
 	public void setRefreshExpirationDateInMs(int refreshExpirationDateInMs) {
