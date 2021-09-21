@@ -12,6 +12,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ *JWT Token Generator
+ *======================
+ *
+ *
+ */
 @Component
 public class JwtUtil {
 	private String secret; 

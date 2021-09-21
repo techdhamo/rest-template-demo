@@ -1,10 +1,9 @@
 package com.otomate.loginservice.service;
+  
 
-import java.util.Optional;
-
-import com.otomate.loginservice.model.UserRequest;
+import in.otomate.common.model.AdminModel;
 
 public interface IUserLoginService{
-UserRequest findByEmail(String username);
+AdminModel findByEmail(String username);
 
 }

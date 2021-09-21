@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.otomate.loginservice.logger.Log;
+import org.springframework.web.filter.OncePerRequestFilter; 
 import com.otomate.loginservice.util.JwtUtil;
+
+import in.otomate.common.logger.Log;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -29,7 +29,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
 		String bearerToken = request.getHeader("Authorization");
-		Log.logger.debug("Remote Host"+request.getRemoteHost());
+		Log.debug(this,"Remote Host"+request.getRemoteHost());
 
 		if (bearerToken != null) {
 
@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 				UserDetails user = userDetailsService.loadUserByUsername(username);
 				boolean isValid = jwtUtil.validateToken(token, user.getUsername());
 				if (isValid) {
-					Log.logger.info("Token Validated");
+					Log.info(this,"Token Validated");
 					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 							user.getPassword(), user.getAuthorities());
 
@@ -52,7 +52,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 			}
 		} else {
 
-			Log.logger.info("Authorization Token is Empty");
+			Log.warning(this, "Invalid or Empty Token Provided, token: "+bearerToken);
 		}
 		filterChain.doFilter(request, response);
 	}
