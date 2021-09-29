@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
+
+import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,18 +39,17 @@ public class AdminLoginController {
  
 		return ResponseEntity.ok(new AdminResponse(token, "Success!"));
 	}
-
-
+	 
 	@GetMapping(Path.ADMIN_REFRESH_TOKEN_PATH)
 	public ResponseEntity< AdminResponse > refreshtoken(HttpServletRequest request){
 		String bearerToken = request.getHeader("Authorization");
-		String expiryToken = bearerToken.replace("Bearer", "");
+		String expiryToken = bearerToken.replace("Bearer ", "");
+		 
 		DefaultClaims claims = (DefaultClaims) jwtUtil.getClaims(expiryToken); 
 		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
 		String token = jwtUtil.generateRefreshToken(expectedMap, expectedMap.get("sub").toString());
 		return ResponseEntity.ok(new AdminResponse(token, "refreshed"));
 	}
-
 	public Map<String, Object> getMapFromIoJsonwebtokenClaims(DefaultClaims claims) {
 		Map<String, Object> expectedMap = new HashMap<>();
 		for (Entry<String, Object> entry : claims.entrySet()) {
