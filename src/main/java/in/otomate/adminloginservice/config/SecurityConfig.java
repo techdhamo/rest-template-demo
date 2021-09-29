@@ -1,4 +1,4 @@
-package com.otomate.loginservice.config;
+package in.otomate.adminloginservice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +18,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.otomate.loginservice.filter.CORSFilter;
-import com.otomate.loginservice.filter.SecurityFilter;
+import in.otomate.adminloginservice.filter.CORSFilter;
+import in.otomate.adminloginservice.filter.SecurityFilter;
 
 @EnableWebSecurity
 @Configuration

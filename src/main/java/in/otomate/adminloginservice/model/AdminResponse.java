@@ -1,4 +1,4 @@
-package com.otomate.loginservice.model;
+package in.otomate.adminloginservice.model;
 
 
 public class AdminResponse {

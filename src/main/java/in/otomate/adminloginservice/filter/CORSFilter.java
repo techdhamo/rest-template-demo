@@ -1,4 +1,4 @@
-package com.otomate.loginservice.filter;
+package in.otomate.adminloginservice.filter;
 import org.springframework.core.Ordered;
 import java.io.IOException;
 import javax.servlet.Filter;

@@ -1,4 +1,4 @@
-package com.otomate.loginservice;
+package in.otomate.adminloginservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

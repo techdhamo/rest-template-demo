@@ -1,18 +1,18 @@
-package com.otomate.loginservice.service.implementation;
+package in.otomate.adminloginservice.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.otomate.loginservice.model.AdminDetails;
-import com.otomate.loginservice.model.AdminModel;
-import com.otomate.loginservice.service.IUserLoginService; 
+import in.otomate.adminloginservice.model.AdminDetails;
+import in.otomate.adminloginservice.model.AdminModel;
+import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.common.logger.Log; 
 
-public class UserDetailServiceImpl implements UserDetailsService {
+public class AdminDetailServiceImpl implements UserDetailsService {
 	@Autowired 
-	private IUserLoginService service;
+	private IAdminLoginService service;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

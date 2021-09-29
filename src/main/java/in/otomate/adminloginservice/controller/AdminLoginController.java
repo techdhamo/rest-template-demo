@@ -1,4 +1,4 @@
-package com.otomate.loginservice.controller;
+package in.otomate.adminloginservice.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.otomate.loginservice.model.AdminResponse;
-import com.otomate.loginservice.util.JwtUtil;
+
+import in.otomate.adminloginservice.model.AdminResponse;
+import in.otomate.adminloginservice.util.JwtUtil;
 import in.otomate.common.config.Path;
 import io.jsonwebtoken.impl.DefaultClaims;
 

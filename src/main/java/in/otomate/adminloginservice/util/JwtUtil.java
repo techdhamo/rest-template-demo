@@ -1,4 +1,4 @@
-package com.otomate.loginservice.util;
+package in.otomate.adminloginservice.util;
 
 import java.util.Date;
 import java.util.HashMap;

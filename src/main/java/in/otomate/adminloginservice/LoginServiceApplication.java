@@ -1,4 +1,4 @@
-package com.otomate.loginservice;
+package in.otomate.adminloginservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,14 +7,14 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.otomate.loginservice.config.SecurityConfig;
-import com.otomate.loginservice.controller.AdminLoginController;
-import com.otomate.loginservice.filter.SecurityFilter;
-import com.otomate.loginservice.service.implementation.UserLoginServiceImpl;
-import com.otomate.loginservice.util.JwtUtil;
+import in.otomate.adminloginservice.config.SecurityConfig;
+import in.otomate.adminloginservice.controller.AdminLoginController;
+import in.otomate.adminloginservice.filter.SecurityFilter;
+import in.otomate.adminloginservice.service.implementation.AdminLoginServiceImpl;
+import in.otomate.adminloginservice.util.JwtUtil;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan(basePackageClasses = { SecurityFilter.class,JwtUtil.class,AdminLoginController.class,SecurityConfig.class,UserLoginServiceImpl.class})
+@ComponentScan(basePackageClasses = { SecurityFilter.class,JwtUtil.class,AdminLoginController.class,SecurityConfig.class,AdminLoginServiceImpl.class})
 public class LoginServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LoginServiceApplication.class, args);

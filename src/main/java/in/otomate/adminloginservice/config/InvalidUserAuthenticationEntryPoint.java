@@ -1,4 +1,4 @@
-package com.otomate.loginservice.config;
+package in.otomate.adminloginservice.config;
 
 import java.io.IOException;
 
