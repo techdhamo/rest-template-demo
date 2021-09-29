@@ -1,7 +1,6 @@
 package com.otomate.loginservice.service;
-  
 
-import in.otomate.common.model.AdminModel;
+import com.otomate.loginservice.model.AdminModel;
 
 public interface IUserLoginService{
 AdminModel findByEmail(String username);

@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.otomate.loginservice.model.MyUserDetails;  
+import com.otomate.loginservice.model.AdminDetails;
+import com.otomate.loginservice.model.AdminModel;
 import com.otomate.loginservice.service.IUserLoginService; 
-import in.otomate.common.logger.Log;
-import in.otomate.common.model.AdminModel;
+import in.otomate.common.logger.Log; 
 
 public class UserDetailServiceImpl implements UserDetailsService {
 	@Autowired 
@@ -24,7 +24,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		}catch (Exception e) {
 			Log.error(this, e.getMessage());
 		}
-		return new MyUserDetails(user);
+		Log.info(this, user.toString());
+		return new AdminDetails(user);
 	}
 
 }

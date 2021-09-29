@@ -1,14 +1,14 @@
 package com.otomate.loginservice.model;
 
 
-public class UserResponse {
+public class AdminResponse {
 	private String token;
 	private String message;
-	public UserResponse(String token, String message) { 
+	public AdminResponse(String token, String message) { 
 		this.token = token;
 		this.message = message;
 	}
-	public UserResponse() {  
+	public AdminResponse() {  
 	}
 	public String getToken() {
 		return token;

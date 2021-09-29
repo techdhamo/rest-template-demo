@@ -2,19 +2,16 @@ package com.otomate.loginservice.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.List; 
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails; 
 
-import in.otomate.common.model.AdminModel;
-
-public class MyUserDetails implements UserDetails { 
+public class AdminDetails implements UserDetails { 
 	AdminModel user;
 
-	public MyUserDetails(AdminModel user) {
+	public AdminDetails(AdminModel user) {
 	this.user = user;
 }
 

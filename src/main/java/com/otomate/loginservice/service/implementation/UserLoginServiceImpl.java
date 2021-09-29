@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; 
-import com.otomate.loginservice.repository.UserRepository;
-import com.otomate.loginservice.service.IUserLoginService;
+import org.springframework.transaction.annotation.Transactional;
 
-import in.otomate.common.model.AdminModel; 
+import com.otomate.loginservice.model.AdminModel;
+import com.otomate.loginservice.repository.UserRepository;
+import com.otomate.loginservice.service.IUserLoginService; 
 
 @Service
 public class UserLoginServiceImpl implements IUserLoginService{
@@ -20,7 +20,7 @@ public class UserLoginServiceImpl implements IUserLoginService{
 		Optional<AdminModel> opt=repo.findOneByEmail(username);
 		if(opt.isPresent()) 
 			return opt.get();
-		return null;	}
+		else return null;	}
 	
 
 }

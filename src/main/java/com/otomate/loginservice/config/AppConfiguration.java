@@ -10,11 +10,11 @@ import com.otomate.loginservice.service.implementation.UserDetailServiceImpl;
 @Configuration
 public class AppConfiguration {
 	@Bean
-	BCryptPasswordEncoder encoder() {
+	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 	@Bean
 	public UserDetailsService service() {
 		return new UserDetailServiceImpl();
-	}
+	} 
 }
