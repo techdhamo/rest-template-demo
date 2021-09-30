@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails; 
+import org.springframework.security.core.userdetails.UserDetails;
+
+import in.otomate.common.logger.Log; 
 
 public class AdminDetails implements UserDetails { 
 	AdminModel user;
@@ -49,7 +51,13 @@ List<SimpleGrantedAuthority> authorities=new ArrayList<>();
 
 	@Override
 	public boolean isEnabled() { 
-		return user.isEnabled();
+		try {
+			return user.isEnabled();
+		} catch (Exception e) {
+			Log.info(this, "  User object in null");
+			return false; 
+		}
+		
 	}
 
 }

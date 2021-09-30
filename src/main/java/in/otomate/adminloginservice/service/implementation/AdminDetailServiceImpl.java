@@ -19,12 +19,13 @@ public class AdminDetailServiceImpl implements UserDetailsService {
 		AdminModel user=service.findByEmail(username);
 		try {
 		if (user==null) {
+
 			throw new UsernameNotFoundException("Username not Found");
+			
 		} 
 		}catch (Exception e) {
 			Log.error(this, e.getMessage());
-		}
-		Log.info(this, user.toString());
+		} 
 		return new AdminDetails(user);
 	}
 
