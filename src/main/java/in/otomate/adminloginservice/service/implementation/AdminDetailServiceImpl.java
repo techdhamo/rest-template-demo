@@ -1,14 +1,17 @@
 package in.otomate.adminloginservice.service.implementation;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import in.otomate.adminloginservice.logger.Log;
 import in.otomate.adminloginservice.model.AdminDetails;
 import in.otomate.adminloginservice.model.AdminModel;
 import in.otomate.adminloginservice.service.IAdminLoginService;
-import in.otomate.common.logger.Log; 
+  
 
 public class AdminDetailServiceImpl implements UserDetailsService {
 	@Autowired 
@@ -18,7 +21,7 @@ public class AdminDetailServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		AdminModel user=service.findByEmail(username);
 		try {
-		if (user==null) {
+		if (Objects.isNull(user)) {
 
 			throw new UsernameNotFoundException("Username not Found");
 			

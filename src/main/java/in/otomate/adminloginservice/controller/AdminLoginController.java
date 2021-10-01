@@ -3,9 +3,9 @@ package in.otomate.adminloginservice.controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.otomate.adminloginservice.model.AdminResponse;
 import in.otomate.adminloginservice.util.JwtUtil;
-import in.otomate.common.config.Path;
 import io.jsonwebtoken.impl.DefaultClaims;
 
 //@CrossOrigin(origins = Hosts.CLIENT_HOST) 
 @RestController
-@RequestMapping(Path.ADMIN_ROOT_PATH) 
+@RequestMapping("admin") 
 public class AdminLoginController {
 
 	@Autowired
@@ -30,7 +29,7 @@ public class AdminLoginController {
 
 	@Autowired
 	private JwtUtil jwtUtil; 
-	@GetMapping(Path.ADMIN_LOGIN_PATH)
+	@GetMapping("login")
 	public ResponseEntity<AdminResponse> loginUser(@RequestParam String username, @RequestParam String password) {
  		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(username, password));
@@ -40,7 +39,7 @@ public class AdminLoginController {
 		return ResponseEntity.ok(new AdminResponse(token, "Success!"));
 	}
 	 
-	@GetMapping(Path.ADMIN_REFRESH_TOKEN_PATH)
+	@GetMapping("refreshtoken")
 	public ResponseEntity< AdminResponse > refreshtoken(HttpServletRequest request){
 		String bearerToken = request.getHeader("Authorization");
 		String expiryToken = bearerToken.replace("Bearer ", "");

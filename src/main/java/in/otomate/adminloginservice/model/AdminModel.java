@@ -26,12 +26,13 @@ import lombok.Data;
 public class AdminModel {
 	@Id()
 	@GeneratedValue(generator = "prod-generator")
-	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.common.util.LongIDGenerator")
+	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.adminloginservice.util.AdminIDGenerator")
 	private Long adminId; 
-	@Column(unique = true)
 	private String firstName;
 	private String lastName;
+	@Column(unique = true)
 	private String email; 
+	@Column(unique = true)
 	private String mobile;
 	private String password; 
 	private boolean enabled=true;

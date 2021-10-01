@@ -80,7 +80,7 @@ public class JwtUtil {
 
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuer("OTOMATE")
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(30)))
+				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1200)))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 

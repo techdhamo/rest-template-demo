@@ -13,8 +13,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import in.otomate.adminloginservice.logger.Log;
 import in.otomate.adminloginservice.util.JwtUtil;
-import in.otomate.common.logger.Log; 
+ 
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {

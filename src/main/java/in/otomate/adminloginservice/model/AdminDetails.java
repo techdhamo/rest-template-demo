@@ -8,8 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import in.otomate.common.logger.Log; 
+import in.otomate.adminloginservice.logger.Log;
 
+ 
 public class AdminDetails implements UserDetails { 
 	AdminModel user;
 
@@ -23,7 +24,6 @@ List<SimpleGrantedAuthority> authorities=new ArrayList<>();
 	authorities.add(new SimpleGrantedAuthority("SUPER_ADMIN")); 
 		return authorities;
 	}
-
 	@Override
 	public String getPassword() { 
 		return user.getPassword();
