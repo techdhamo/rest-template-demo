@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.otomate.adminloginservice.model.AdminModel;
 import in.otomate.adminloginservice.model.AdminResponse;
+import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.adminloginservice.util.JwtUtil;
 import io.jsonwebtoken.impl.DefaultClaims;
 
@@ -26,17 +28,17 @@ public class AdminLoginController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager; 
-
+@Autowired
+IAdminLoginService service;
 	@Autowired
 	private JwtUtil jwtUtil; 
 	@GetMapping("login")
 	public ResponseEntity<AdminResponse> loginUser(@RequestParam String username, @RequestParam String password) {
- 		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(username, password));
+ 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
 		String token = jwtUtil.generateToken(username);
- 
-		return ResponseEntity.ok(new AdminResponse(token, "Success!"));
+ AdminModel admin= service.findByEmail(username);
+		return ResponseEntity.ok(new AdminResponse(token,admin.getAdminId(),admin.getFirstName()+" "+admin.getLastName(),admin.getEmail()));
 	}
 	 
 	@GetMapping("refreshtoken")
@@ -47,7 +49,9 @@ public class AdminLoginController {
 		DefaultClaims claims = (DefaultClaims) jwtUtil.getClaims(expiryToken); 
 		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
 		String token = jwtUtil.generateRefreshToken(expectedMap, expectedMap.get("sub").toString());
-		return ResponseEntity.ok(new AdminResponse(token, "refreshed"));
+		String username = jwtUtil.getUsername(token);
+ AdminModel admin= service.findByEmail(username);
+ return ResponseEntity.ok(new AdminResponse(token,admin.getAdminId(),admin.getFirstName()+" "+admin.getLastName(),admin.getEmail()));
 	}
 	public Map<String, Object> getMapFromIoJsonwebtokenClaims(DefaultClaims claims) {
 		Map<String, Object> expectedMap = new HashMap<>();
