@@ -5,6 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import in.otomate.adminloginservice.model.Admin; 
-public interface AdminRepository extends JpaRepository<Admin, String>{
+public interface AdminRepository extends JpaRepository<Admin, Long>{
 Optional<Admin> findOneByEmail(String email);
 }

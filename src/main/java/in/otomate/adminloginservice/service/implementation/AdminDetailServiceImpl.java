@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import in.otomate.adminloginservice.logger.Log;
 import in.otomate.adminloginservice.model.AdminDetails;
 import in.otomate.adminloginservice.model.Admin;
 import in.otomate.adminloginservice.service.IAdminLoginService;
   
-
+@Service
 public class AdminDetailServiceImpl implements UserDetailsService {
 	@Autowired 
 	private IAdminLoginService service;
