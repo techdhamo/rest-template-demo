@@ -12,9 +12,9 @@ import in.otomate.adminloginservice.logger.Log;
 
  
 public class AdminDetails implements UserDetails { 
-	AdminModel user;
+	Admin user;
 
-	public AdminDetails(AdminModel user) {
+	public AdminDetails(Admin user) {
 	this.user = user;
 }
 

@@ -22,14 +22,14 @@ import lombok.Data;
 @Data
 @Entity
 @Component
-@Table(name = "admin_details")
-public class AdminModel {
+@Table(name = "admin")
+public class Admin {
 	@Id()
 	@GeneratedValue(generator = "prod-generator")
-	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.adminloginservice.util.AdminIDGenerator")
-	private Long adminId; 
-	private String firstName;
-	private String lastName;
+	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.adminloginservice.util.BasicIDGenerator")
+	private Long id;  
+	private String fname;	 
+	private String lname;
 	@Column(unique = true)
 	private String email; 
 	@Column(unique = true)

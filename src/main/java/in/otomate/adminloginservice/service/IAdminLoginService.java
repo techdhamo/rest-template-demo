@@ -1,8 +1,10 @@
 package in.otomate.adminloginservice.service;
 
-import in.otomate.adminloginservice.model.AdminModel;
+import in.otomate.adminloginservice.model.Admin;
 
 public interface IAdminLoginService{
-AdminModel findByEmail(String username);
+Admin findByEmail(String username);
+ 
+Admin saveInfo(Admin a);
 
 }

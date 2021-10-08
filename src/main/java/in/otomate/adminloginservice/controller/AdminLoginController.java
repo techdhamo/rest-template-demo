@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import in.otomate.adminloginservice.model.AdminModel;
+import in.otomate.adminloginservice.model.Admin;
 import in.otomate.adminloginservice.model.AdminResponse;
 import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.adminloginservice.util.JwtUtil;
@@ -37,8 +39,8 @@ IAdminLoginService service;
  		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
 		String token = jwtUtil.generateToken(username);
- AdminModel admin= service.findByEmail(username);
-		return ResponseEntity.ok(new AdminResponse(token,admin.getAdminId(),admin.getFirstName()+" "+admin.getLastName(),admin.getEmail()));
+ Admin admin= service.findByEmail(username);
+		return ResponseEntity.ok(new AdminResponse(token,admin.getId(),admin.getFname()+" "+admin.getLname(),admin.getEmail()));
 	}
 	 
 	@GetMapping("refreshtoken")
@@ -50,8 +52,8 @@ IAdminLoginService service;
 		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
 		String token = jwtUtil.generateRefreshToken(expectedMap, expectedMap.get("sub").toString());
 		String username = jwtUtil.getUsername(token);
- AdminModel admin= service.findByEmail(username);
- return ResponseEntity.ok(new AdminResponse(token,admin.getAdminId(),admin.getFirstName()+" "+admin.getLastName(),admin.getEmail()));
+ Admin admin= service.findByEmail(username);
+ return ResponseEntity.ok(new AdminResponse(token,admin.getId(),admin.getFname()+" "+admin.getLname(),admin.getEmail()));
 	}
 	public Map<String, Object> getMapFromIoJsonwebtokenClaims(DefaultClaims claims) {
 		Map<String, Object> expectedMap = new HashMap<>();
@@ -60,5 +62,7 @@ IAdminLoginService service;
 		}
 		return expectedMap;
 	}
-
+@PostMapping("register") Admin test(@RequestBody  Admin a) {
+	return service.saveInfo(a);
+}
 }

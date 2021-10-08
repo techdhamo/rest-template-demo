@@ -1,30 +1,25 @@
 package in.otomate.adminloginservice.util;
+ 
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Query;
-
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
-import org.hibernate.type.LongType;
 
-import in.otomate.adminloginservice.logger.Log;
-import in.otomate.adminloginservice.model.Admin; 
+import in.otomate.adminloginservice.logger.Log; 
  
 
-public class AdminIDGenerator implements IdentifierGenerator {
+public class BasicIDGenerator implements IdentifierGenerator {
 
 	private Long max;
 
 	@Override
 	public Serializable generate(SharedSessionContractImplementor session, Object obj) throws HibernateException {
-		if (obj instanceof Admin) {
-			String query = String.format("SELECT %s FROM admin_details ORDER BY %s DESC LIMIT 1",
-					session.getEntityPersister(obj.getClass().getName(), obj).getIdentifierPropertyName(),
-					 session.getEntityPersister(obj.getClass().getName(), obj).getIdentifierPropertyName());
-			Query qry = session.createSQLQuery(query).addScalar("id", LongType.INSTANCE);
+		if (obj instanceof Object) {
+			String query = String.format("SELECT s.id FROM %s s ORDER BY s.id DESC",obj.getClass().getSimpleName());
+			Query qry = session.createQuery(query).setFirstResult(0).setMaxResults(1);
 			List<Long> id = qry.getResultList();
 
 			try {
