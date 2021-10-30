@@ -3,14 +3,15 @@ package in.otomate.adminloginservice.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.Id; 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter; 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * ORGANIZATION MODEL CLASS ================ This Class contains all private
@@ -22,11 +23,13 @@ import lombok.Data;
 @Data
 @Entity
 @Component
-@Table(name = "admin")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder 
 public class Admin {
 	@Id()
 	@GeneratedValue(generator = "prod-generator")
-	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.adminloginservice.util.BasicIDGenerator")
+	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.common.util.BasicIDGenerator")
 	private Long id;  
 	private String fname;	 
 	private String lname;
@@ -35,5 +38,5 @@ public class Admin {
 	@Column(unique = true)
 	private String mobile;
 	private String password; 
-	private boolean enabled=true;
+	private boolean enabled;
 }

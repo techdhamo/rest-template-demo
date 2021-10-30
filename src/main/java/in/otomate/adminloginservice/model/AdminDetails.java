@@ -2,16 +2,14 @@ package in.otomate.adminloginservice.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List; 
-
+import java.util.List;  
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import in.otomate.adminloginservice.logger.Log;
-
+import org.springframework.security.core.userdetails.UserDetails; 
+import in.otomate.common.logger.Log; 
  
-public class AdminDetails implements UserDetails { 
+public class AdminDetails implements UserDetails {  
+	private static final long serialVersionUID = -8979648426349065122L;
 	Admin user;
 
 	public AdminDetails(Admin user) {
@@ -54,7 +52,7 @@ List<SimpleGrantedAuthority> authorities=new ArrayList<>();
 		try {
 			return user.isEnabled();
 		} catch (Exception e) {
-			Log.info(this, "  User object in null");
+			Log.info(this, "User object in null");
 			return false; 
 		}
 		

@@ -14,8 +14,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import in.otomate.adminloginservice.logger.Log;
-import in.otomate.adminloginservice.util.JwtUtil;
+import in.otomate.common.logger.Log;
+import in.otomate.common.util.JwtUtil; 
  
 
 @Component
@@ -38,8 +38,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 				UserDetails user = userDetailsService.loadUserByUsername(username);
 				boolean isValid = jwtUtil.validateToken(token, user.getUsername());
-				if (isValid) {
-					Log.info(this,"Token Validated");
+				if (isValid) { 
 					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 							user.getPassword(), user.getAuthorities());
 
@@ -51,7 +50,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 			}
 		} else {
 
-			Log.warning(this, "Invalid or Empty Token Provided, token: "+bearerToken);
+			Log.warning(this, "Invalid or Empty Token Provided ");
 		}
 		filterChain.doFilter(request, response);
 	}

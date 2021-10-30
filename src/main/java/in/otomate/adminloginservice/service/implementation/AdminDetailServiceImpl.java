@@ -7,12 +7,11 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-
-import in.otomate.adminloginservice.logger.Log;
+import org.springframework.stereotype.Service; 
 import in.otomate.adminloginservice.model.AdminDetails;
 import in.otomate.adminloginservice.model.Admin;
 import in.otomate.adminloginservice.service.IAdminLoginService;
+import in.otomate.common.logger.Log;
 @Primary  
 @Service
 public class AdminDetailServiceImpl implements UserDetailsService {

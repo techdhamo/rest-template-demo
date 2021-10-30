@@ -7,4 +7,11 @@ Admin findByEmail(String username);
  
 Admin saveInfo(Admin a);
 
+/**
+ * @param id
+ * @return
+ */
+Admin findById(Long id);
+void addToElastic();
 }
+
