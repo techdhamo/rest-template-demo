@@ -1,5 +1,6 @@
 package in.otomate.adminloginservice.model;
 
+import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +29,11 @@ import lombok.NoArgsConstructor;
 @Builder 
 public class Admin {
 	@Id()
-	@GeneratedValue(generator = "prod-generator")
-	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.common.util.BasicIDGenerator")
+	@GeneratedValue(generator = "adminid")
+	@GenericGenerator(name = "adminid", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.common.util.BasicIDGenerator")
 	private Long id;  
+	@Nullable 
+	private Long orgId;  
 	private String fname;	 
 	private String lname;
 	@Column(unique = true)

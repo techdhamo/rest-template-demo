@@ -35,13 +35,14 @@ public class AdminLoginController {
 	IAdminLoginService service;
 	@Autowired
 	private JwtUtil jwtUtil;
+
 	@PostMapping("login")
 	public ResponseEntity<AdminResponse> loginUser(@RequestBody Admin a) {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(a.getEmail(), a.getPassword()));
 		String token = jwtUtil.generateToken(a.getEmail());
 		Admin admin = service.findByEmail(a.getEmail());
-		return ResponseEntity.ok(
-				new AdminResponse(token, admin.getId(), admin.getFname() + " " + admin.getLname(), admin.getEmail()));
+		return ResponseEntity.ok(new AdminResponse(token, admin.getId(), admin.getFname() + " " + admin.getLname(),
+				admin.getEmail(), admin.getMobile(), admin.getOrgId()));
 	}
 
 	@GetMapping("refreshtoken")
@@ -54,8 +55,8 @@ public class AdminLoginController {
 		String token = jwtUtil.generateRefreshToken(expectedMap, expectedMap.get("sub").toString());
 		String username = jwtUtil.getUsername(token);
 		Admin admin = service.findByEmail(username);
-		return ResponseEntity.ok(
-				new AdminResponse(token, admin.getId(), admin.getFname() + " " + admin.getLname(), admin.getEmail()));
+		return ResponseEntity.ok(new AdminResponse(token, admin.getId(), admin.getFname() + " " + admin.getLname(),
+				admin.getEmail(), admin.getMobile(), admin.getOrgId()));
 	}
 
 	public Map<String, Object> getMapFromIoJsonwebtokenClaims(DefaultClaims claims) {
