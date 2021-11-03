@@ -2,26 +2,23 @@ package in.otomate.adminloginservice.service.implementation;
 
 import java.util.Optional;  
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpEntity;
+import org.springframework.dao.DataIntegrityViolationException; 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;  
+import org.springframework.transaction.annotation.Transactional; 
 import in.otomate.adminloginservice.model.Admin;
-import in.otomate.adminloginservice.repository.AdminRepository;
+import in.otomate.adminloginservice.repository.AdminRepository; 
 import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.common.Exceptions.DataViolationException;
 import in.otomate.common.Exceptions.InvalidDataException;
 import in.otomate.common.Exceptions.NullDataException;
 import in.otomate.common.Exceptions.SystemException;
-import in.otomate.common.Exceptions.UserNotFoundException;
-import in.otomate.common.config.Hosts; 
+import in.otomate.common.Exceptions.UserNotFoundException; 
 
 @Service
 public class AdminLoginServiceImpl implements IAdminLoginService{
 	@Autowired
-	private AdminRepository repo; 
+	private AdminRepository repo;  
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
@@ -45,14 +42,14 @@ public class AdminLoginServiceImpl implements IAdminLoginService{
 		try {
 			 admin.setPassword(encoder.encode(admin.getPassword()));
 				Admin adminUpdated= repo.save(admin);  
-				return addToElastic(adminUpdated);
+				return adminUpdated;
 		} catch (IllegalArgumentException e) { 
-			throw new InvalidDataException(admin.getEmail(), admin, "Invalid data provided for Admin");
+			throw new InvalidDataException(admin.getEmail(), this, "Invalid data provided for Admin");
 		} catch (DataIntegrityViolationException e) {
-			throw new DataViolationException(null, admin, e.getMessage());
+			throw new DataViolationException(admin.getEmail(), this, e.getRootCause().getMessage());
 		}catch (Exception e) {
 
-			throw new SystemException(admin.getEmail(), admin, e.getMessage());
+			throw new SystemException(admin.getEmail(), this, e.getMessage());
 		}
 	}else {
 		throw new NullDataException(null, this, " Admin instance is Null");
@@ -72,16 +69,5 @@ public class AdminLoginServiceImpl implements IAdminLoginService{
 		}
 
 	}
-
-	@Override
-	public Admin addToElastic(Admin admin) {
-		try {
-			RestTemplate restTemplate = new RestTemplate(); 
-			HttpEntity<Admin> request = new HttpEntity<>(admin);
-			restTemplate.postForObject(Hosts.ELASTIC_HOST, request, Admin.class);
-			return admin;
-		} catch (Exception e) {
-			throw new SystemException(null, this, e.getMessage());
-		}
-	}
+ 
 }

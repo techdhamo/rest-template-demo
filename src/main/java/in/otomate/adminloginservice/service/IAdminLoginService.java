@@ -11,12 +11,6 @@ Admin saveInfo(Admin a);
  * @param id
  * @return
  */
-Admin findById(Long id); 
-
-/**
- * @param admin
- * @return 
- */
-Admin addToElastic(Admin admin);
+Admin findById(Long id);  
 }
 
