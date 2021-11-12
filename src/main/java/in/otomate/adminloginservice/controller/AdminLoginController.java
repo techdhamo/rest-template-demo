@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.otomate.adminloginservice.model.Admin;
 import in.otomate.adminloginservice.model.AdminResponse;
+import in.otomate.adminloginservice.model.OTPRequest;
+import in.otomate.adminloginservice.model.VerifyContact;
 import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.common.util.JwtUtil;
 import io.jsonwebtoken.impl.DefaultClaims;
@@ -75,5 +77,13 @@ public class AdminLoginController {
 	@GetMapping("{id}")
 	Admin test(@PathVariable Long id) {
 		return service.findById(id);
+	}
+	@GetMapping("verify")
+	Boolean verify(@RequestBody  VerifyContact contact) {
+		return service.verify(contact);
+	}
+		@GetMapping("send")
+		Boolean send(@RequestBody  OTPRequest contact) {
+			return service.sendOtp(contact);
 	}
 }

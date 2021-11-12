@@ -7,7 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional; 
 import in.otomate.adminloginservice.model.Admin;
-import in.otomate.adminloginservice.repository.AdminRepository; 
+import in.otomate.adminloginservice.model.OTPRequest;
+import in.otomate.adminloginservice.model.Verification;
+import in.otomate.adminloginservice.model.VerifyContact;
+import in.otomate.adminloginservice.repository.AdminRepository;
+import in.otomate.adminloginservice.repository.VerificationRepository;
 import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.common.Exceptions.DataViolationException;
 import in.otomate.common.Exceptions.InvalidDataException;
@@ -20,8 +24,11 @@ public class AdminLoginServiceImpl implements IAdminLoginService{
 	@Autowired
 	private AdminRepository repo;  
 	@Autowired
+	private VerificationRepository vrepo;  
+	@Autowired
 	private BCryptPasswordEncoder encoder;
-
+@Autowired
+OTPSender sender;
 	@Transactional(readOnly = true)
 	public Admin findByEmail(String username) { 
 		if (username != null) {
@@ -69,5 +76,84 @@ public class AdminLoginServiceImpl implements IAdminLoginService{
 		}
 
 	}
+
+	@Override
+	public Boolean sendOtp(OTPRequest contact) {
+		if (contact != null) {
+			 if (contact.getContact().contains("+")) {  
+				String otp=sender.send(contact.getContact());
+				if (otp != null) {
+					try {
+						Verification verification=vrepo.findByContact(contact.getContact());
+					if (verification == null) {
+						verification=Verification.builder()
+							.contact(contact.getContact())
+							.otp(otp)
+							.build();
+					}else {
+						verification.setOtp(otp);
+					}		 
+					vrepo.save(verification);
+					return true;
+					}catch (RuntimeException e) {
+						throw new SystemException(null, this, e.getMessage());  
+					}
+				}else {
+					throw new InvalidDataException(null, this, "Otp is null for "+contact.getContact());
+				}
+			}else if (contact.getContact().contains("@")) {
+				String otp=sender.send(contact.getContact());
+				if (otp != null) {
+					try {
+					Verification verification=Verification.builder()
+							.contact(contact.getContact())
+							.otp(otp)
+							.build();
+					vrepo.save(verification);
+					return true;
+					}catch (RuntimeException e) {
+						throw new SystemException(null, this, e.getMessage());  
+					}
+				}else {
+					throw new InvalidDataException(null, this, "Invalid data provided :"+contact.getContact());
+				}
+			
+			}else {
+				throw new InvalidDataException(null, this, "Otp is null for "+contact.getContact());
+			}
+			
+		}else {
+			throw new NullDataException(null, this, "mobile number can't be null");
+		}
+		 
+	}
+
+	@Override
+	public Boolean verify(VerifyContact contact) {
+		try {
+			Verification verification= vrepo.findByContact(contact.getContact());
+		if (verification.getOtp().equals(contact.getOtp())) {
+			verification.setActive(true);
+			verification.setVerified(true);
+			vrepo.save(verification);
+			return true;
+			
+		}else {
+			throw new InvalidDataException(null, this, " Data Mismatch"); 
+		}
+		} catch (IllegalArgumentException e) {
+
+			throw new NullDataException(null, this, "Invalid Data provided : "+e.getMessage());
+		} catch (RuntimeException e) {
+
+			throw new SystemException(null, this, e.getMessage());
+		} catch (Exception e) {
+
+			throw new SystemException(null, this, e.getMessage());
+		}
+			
+		}
+	}
+
  
-}
+ 
