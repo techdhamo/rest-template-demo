@@ -2,11 +2,15 @@ package in.otomate.adminloginservice.service.implementation;
 
 import java.util.Optional;  
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException; 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; 
+import org.springframework.transaction.annotation.Transactional;
+
+import in.otomate.adminloginservice.controller.AdminLoginController;
 import in.otomate.adminloginservice.model.Admin;
+import in.otomate.adminloginservice.model.AdminResponse;
 import in.otomate.adminloginservice.model.OTPRequest;
 import in.otomate.adminloginservice.model.Verification;
 import in.otomate.adminloginservice.model.VerifyContact;
@@ -26,7 +30,7 @@ public class AdminLoginServiceImpl implements IAdminLoginService{
 	@Autowired
 	private VerificationRepository vrepo;  
 	@Autowired
-	private BCryptPasswordEncoder encoder;
+	private BCryptPasswordEncoder encoder; 
 @Autowired
 OTPSender sender;
 	@Transactional(readOnly = true)
@@ -43,25 +47,7 @@ OTPSender sender;
 
 	}
 
-	@Override
-	public Admin saveInfo(Admin admin) {
-	if (admin != null) {
-		try {
-			 admin.setPassword(encoder.encode(admin.getPassword()));
-				Admin adminUpdated= repo.save(admin);  
-				return adminUpdated;
-		} catch (IllegalArgumentException e) { 
-			throw new InvalidDataException(admin.getEmail(), this, "Invalid data provided for Admin");
-		} catch (DataIntegrityViolationException e) {
-			throw new DataViolationException(admin.getEmail(), this, e.getRootCause().getMessage());
-		}catch (Exception e) {
-
-			throw new SystemException(admin.getEmail(), this, e.getMessage());
-		}
-	}else {
-		throw new NullDataException(null, this, " Admin instance is Null");
-	}
-	}
+ 
 	
 	@Transactional(readOnly = true)
 	public Admin findById(Long id) { 
@@ -153,6 +139,30 @@ OTPSender sender;
 		}
 			
 		}
+
+
+
+	@Override
+	public Admin saveInfo(Admin admin) {
+		if (admin != null) {
+			try {
+				 admin.setPassword(encoder.encode(admin.getPassword()));
+					return repo.save(admin);  
+					 
+			} catch (IllegalArgumentException e) { 
+				throw new InvalidDataException(admin.getEmail(), this, "Invalid data provided for Admin");
+			} catch (DataIntegrityViolationException e) {
+				
+				 throw new DataViolationException(admin.getEmail(), this, e.getRootCause().getMessage());
+			 
+			}catch (Exception e) {
+
+				throw new SystemException(admin.getEmail(), this, e.getMessage());
+			}
+		}else {
+			throw new NullDataException(null, this, " Admin instance is Null");
+		}
+	}
 	}
 
  

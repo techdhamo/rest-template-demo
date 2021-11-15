@@ -70,8 +70,15 @@ public class AdminLoginController {
 	}
 
 	@PostMapping("register")
-	Admin test(@RequestBody Admin a) {
-		return service.saveInfo(a);
+	ResponseEntity<AdminResponse> register(@RequestBody Admin a) {
+		  
+		Admin admin= service.saveInfo(a);
+		 String token = jwtUtil.generateToken(admin.getEmail()); 
+		return ResponseEntity.ok(new AdminResponse(token, admin.getId(), admin.getFname() + " " + admin.getLname(),
+				admin.getEmail(), admin.getMobile(), admin.getOrgId()));
+		
+		
+		
 	}
 
 	@GetMapping("{id}")

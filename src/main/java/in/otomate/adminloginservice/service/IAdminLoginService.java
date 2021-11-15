@@ -7,7 +7,7 @@ import in.otomate.adminloginservice.model.VerifyContact;
 public interface IAdminLoginService{
 Admin findByEmail(String username);
  
-Admin saveInfo(Admin a);
+public Admin saveInfo(Admin admin);
 
 /**
  * @param id
