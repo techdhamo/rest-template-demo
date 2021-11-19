@@ -50,7 +50,7 @@ List<SimpleGrantedAuthority> authorities=new ArrayList<>();
 	@Override
 	public boolean isEnabled() { 
 		try {
-			return user.isEnabled();
+			return user.getEnabled();
 		} catch (Exception e) {
 			Log.info(this, "User object in null");
 			return false; 
