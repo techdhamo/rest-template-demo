@@ -2,6 +2,7 @@ package in.otomate.adminloginservice.service;
 
 import in.otomate.adminloginservice.model.Admin;
 import in.otomate.adminloginservice.model.OTPRequest;
+import in.otomate.adminloginservice.model.ValidationResponse;
 import in.otomate.adminloginservice.model.VerifyContact; 
 
 public interface IAdminLoginService{
@@ -20,12 +21,12 @@ Admin findById(Long id);
  * @param contact
  * @return
  */
-Boolean sendOtp(OTPRequest contact);
+ValidationResponse sendOtp(OTPRequest contact);
 
 /**
  * @param contact
  * @return
  */
-Boolean verify(VerifyContact contact);  
+ValidationResponse verify(VerifyContact contact);  
 }
 

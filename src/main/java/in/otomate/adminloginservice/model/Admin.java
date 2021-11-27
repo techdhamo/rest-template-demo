@@ -41,6 +41,7 @@ public class Admin {
 	private String lname;
 	@Column(unique = true)
 	private String email; 
+	private String currentIndex;
 	@Column(unique = true)
 	private String mobile;
 	private String password; 

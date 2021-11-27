@@ -13,4 +13,5 @@ public class AdminResponse {
 	private String name;
 	private String email; 
 	private String mobile; 
+	private String currentIndex; 
 	private Long orgId; }
