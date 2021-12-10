@@ -102,7 +102,7 @@ public class AdminLoginController {
 	}
 
 	@GetMapping("{id}")
-	Admin test(@PathVariable Long id) {
+	Admin getAdmin(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	@PostMapping("verify")
@@ -120,7 +120,7 @@ public class AdminLoginController {
 	    public ErrorResponse errorResponse(SystemException ex) {
 
 	        ErrorResponse errorResponse = new ErrorResponse();
-	        errorResponse.setMessage(ex.getMessage()+5); 
+	        errorResponse.setMessage(ex.getMessage()); 
 	        return errorResponse;
 	    }
 		@ExceptionHandler(ValidationException.class)
@@ -212,9 +212,9 @@ public class AdminLoginController {
 
 	        ErrorResponse errorResponse = new ErrorResponse();
 	        if(ex.getRootCause() instanceof SQLIntegrityConstraintViolationException | ex.getRootCause() instanceof ConstraintViolationException)
-	        errorResponse.setMessage(ex.getRootCause().getMessage()+2);
+	        errorResponse.setMessage(ex.getRootCause().getMessage());
 	        else {
-	        	  errorResponse.setMessage(ex.getMessage()+2);
+	        	  errorResponse.setMessage(ex.getMessage());
 			}
 	        return errorResponse;
 	    } 

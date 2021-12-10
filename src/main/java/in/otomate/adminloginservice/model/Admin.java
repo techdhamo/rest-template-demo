@@ -1,4 +1,6 @@
 package in.otomate.adminloginservice.model;
+
+
  
 import java.util.Calendar;
 
@@ -7,11 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.aspectj.weaver.patterns.IScope;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
+
+import com.twilio.twiml.voice.Prompt.For;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,18 +30,20 @@ import lombok.NoArgsConstructor;
  * @author OTOMATE TECHNOLOGIES
  *
  */
+ 
 @Data
 @Entity
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder 
+
 public class Admin {
 	@Id()
 	@GeneratedValue(generator = "adminid")
 	@GenericGenerator(name = "adminid", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.common.util.BasicIDGenerator")
 	private Long id;   
-	private Long orgId;  
+	private Long orgId;   
 	private String fname;	 
 	private String lname;
 	@Column(unique = true)
@@ -55,5 +62,8 @@ public class Admin {
 	@Column(updatable = false, insertable = true)
 	private Long createdBy;
 	@Column(updatable = true, insertable = true)
+ 
 	private Long modifiedBy;
+
+	
 }

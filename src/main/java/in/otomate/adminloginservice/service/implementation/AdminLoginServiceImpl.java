@@ -24,6 +24,7 @@ import in.otomate.adminloginservice.repository.AdminRepository;
 import in.otomate.adminloginservice.repository.VerificationRepository;
 import in.otomate.adminloginservice.service.IAdminLoginService;
 import in.otomate.common.Exceptions.DataViolationException;
+import in.otomate.common.Exceptions.DuplicateEntryException;
 import in.otomate.common.Exceptions.InvalidDataException;
 import in.otomate.common.Exceptions.NullDataException;
 import in.otomate.common.Exceptions.SystemException;
@@ -72,47 +73,62 @@ OTPSender sender;
 	@Override
 	public ValidationResponse sendOtp(OTPRequest contact) {
 		if (contact != null) {
-			 if (contact.getContact().contains("+")) {  
-				String otp=sender.send(contact.getContact());
-				if (otp != null) {
+			 if (contact.getContact().contains("+")) {   
 					try {
+						Optional<Admin> adminRecord=repo.findOneByMobile(contact.getContact());
+						if (adminRecord.isPresent()) {
+							throw new DuplicateEntryException(null, this, "Mobile Already registered by Someone");
+						}else {							
 						Verification verification=vrepo.findByContact(contact.getContact());
-					if (verification == null) {
+					if (verification == null) { 
+						String otp=sender.send(contact.getContact());
 						verification=Verification.builder()
 							.contact(contact.getContact())
 							.otp(otp)
 							.build();
 					}else {
+
+						String otp=sender.send(contact.getContact());
+					 
 						verification.setOtp(otp);
-					}		 
-					vrepo.save(verification);
-					return ValidationResponse.builder().contact(contact.getContact()).status(true).build();
-					}catch (RuntimeException e) {
-						throw new SystemException(null, this, e.getMessage());  
-					}
-				}else {
-					throw new InvalidDataException(null, this, "Otp is null for "+contact.getContact());
-				}
-			}else if (contact.getContact().contains("@")) {
-				String otp=sender.send(contact.getContact());
-				if (otp != null) {
-					try {
-					Verification verification=Verification.builder()
-							.contact(contact.getContact())
-							.otp(otp)
-							.build();
+					}	
 					vrepo.save(verification);
 					return ValidationResponse.builder().contact(contact.getContact()).status(true).build();
 					
+						}
 					}catch (RuntimeException e) {
 						throw new SystemException(null, this, e.getMessage());  
 					}
-				}else {
-					throw new InvalidDataException(null, this, "Invalid data provided :"+contact.getContact());
-				}
-			
+				}else if (contact.getContact().contains("@")) {
+					{   
+						try {
+							Optional<Admin> adminRecord=repo.findOneByEmail(contact.getContact());
+							if (adminRecord.isPresent()) {
+								throw new DuplicateEntryException(null, this, "Email Already registered by Someone");
+							}else {							
+							Verification verification=vrepo.findByContact(contact.getContact());
+						if (verification == null) { 
+							String otp=sender.send(contact.getContact());
+							verification=Verification.builder()
+								.contact(contact.getContact())
+								.otp(otp)
+								.build();
+						}else {
+
+							String otp=sender.send(contact.getContact());
+						 
+							verification.setOtp(otp);
+						}	
+						vrepo.save(verification);
+						return ValidationResponse.builder().contact(contact.getContact()).status(true).build();
+						
+							}
+						}catch (RuntimeException e) {
+							throw new SystemException(null, this, e.getMessage());  
+						}
+					}
 			}else {
-				throw new InvalidDataException(null, this, "Otp is null for "+contact.getContact());
+				throw new InvalidDataException(null, this, "Invalid Data Provided : "+contact.getContact());
 			}
 			
 		}else {
