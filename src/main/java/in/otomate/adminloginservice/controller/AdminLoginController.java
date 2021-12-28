@@ -73,10 +73,9 @@ public class AdminLoginController {
 		String expiryToken = bearerToken.replace("Bearer ", "");
 
 		DefaultClaims claims = (DefaultClaims) jwtUtil.getClaims(expiryToken);
-		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
+		Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims); 
+		Admin admin = service.findByEmail(expectedMap.get("sub").toString());
 		String token = jwtUtil.generateRefreshToken(expectedMap, expectedMap.get("sub").toString());
-		String username = jwtUtil.getUsername(token);
-		Admin admin = service.findByEmail(username);
 		return ResponseEntity.ok(new AdminResponse(token, admin.getId(), admin.getFname() + " " + admin.getLname(),
 				admin.getEmail(), admin.getMobile(), admin.getCurrentIndex(),admin.getOrgId()));
 	}

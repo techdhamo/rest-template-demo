@@ -40,8 +40,7 @@ import lombok.NoArgsConstructor;
 
 public class Admin {
 	@Id()
-	@GeneratedValue(generator = "adminid")
-	@GenericGenerator(name = "adminid", parameters = @Parameter(name = "prefix", value = ""), strategy = "in.otomate.common.util.BasicIDGenerator")
+	@GeneratedValue
 	private Long id;   
 	private Long orgId;   
 	private String fname;	 
