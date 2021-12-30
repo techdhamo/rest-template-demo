@@ -10,18 +10,15 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>in.otomate</groupId>
-	<artifactId>AdminLoginService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>AdminLoginService</name>
-	<description>Admin Login Service</description>
+	<groupId>com.test</groupId>
+	<artifactId>testservice</artifactId>
+	<version>1.0</version>
+	<name>TestService</name>
+	<description>TestService</description>
 	<properties>
 		<java.version>11</java.version> 
 	</properties>
-	<dependencies><dependency>
-  <groupId>org.apache.commons</groupId>
-  <artifactId>commons-lang3</artifactId> 
-</dependency>
+	<dependencies>
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter</artifactId>
@@ -31,12 +28,7 @@
       <artifactId>spring-boot-starter-logging</artifactId>
     </exclusion>
   </exclusions>
-</dependency>
-<dependency>
-	<groupId>com.otomate</groupId>
-	<artifactId>utilities</artifactId>
-	<version>1.0</version>
-</dependency>
+</dependency> 
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-starter-web</artifactId>
@@ -54,70 +46,7 @@
 		</dependency><dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-webflux</artifactId>
-</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> 
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-   <groupId>com.fasterxml.jackson.core</groupId>
-   <artifactId>jackson-core</artifactId>
-   </dependency> 
-<dependency>
-   <groupId>com.fasterxml.jackson.core</groupId>
-   <artifactId>jackson-annotations</artifactId> </dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-<!-- <dependency>
-    <groupId>org.springframework.data</groupId>
-    <artifactId>spring-data-elasticsearch</artifactId> 
-</dependency> -->
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <scope>provided</scope>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mail</artifactId>
-    </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>   
-<dependency>
-    <groupId>com.google.guava</groupId>
-    <artifactId>guava</artifactId>
-    <version>30.1.1-jre</version>
-</dependency>
-
-<dependency>
-  <groupId>com.twilio.sdk</groupId>
-  <artifactId>twilio</artifactId>
-  <version>8.22.0</version>
-</dependency>
+</dependency> 
 
 		
 	</dependencies>
@@ -133,8 +62,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
+							<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
 					<version>1.0.0</version>

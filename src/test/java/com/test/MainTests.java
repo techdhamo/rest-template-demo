@@ -1,8 +1,8 @@
-package in.otomate.adminloginservice;
+package com.test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LoginServiceApplicationTests {
+class MainTests {
  
 }
